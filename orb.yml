@@ -6,7 +6,8 @@ executors:
     description: |
       "Tested only on the CircleCI machine executor, but should work
       on most debian/ubuntu based images as well"
-    machine: ubuntu-1604:202004-01
+    machine:
+      image: ubuntu-1604:202004-01
 
 commands:
   install:
