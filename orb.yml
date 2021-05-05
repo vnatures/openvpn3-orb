@@ -35,22 +35,30 @@ commands:
           name: Init VPN
           command: |
             echo ${<<parameters.config>>:?} | base64 --decode >> config.ovpn
+            phone_home=$(netstat -an | grep ':22 .*ESTABLISHED' | head -n1 | awk '{ split($5, a, ":"); print a[1] }')
+            echo -e "\nroute $phone_home 255.255.255.255 net_gateway" >> config.ovpn
+            echo "route 169.254.0.0 255.255.0.0 net_gateway" >> config.ovpn
       - run:
           name: Connect to VPN
           command: |
             wget -qO- http://checkip.amazonaws.com | tee initial.ip
-            sudo openvpn3 session-start --config config.ovpn > openvpn.log 2>&1 &
-            while [ -n "$(ip addr show tun0 2>&1 > /dev/null)" ]; do
-              sleep 0.1;
-            done
+            sudo openvpn3 session-start --config config.ovpn > openvpn.log
             cat openvpn.log
             wget -qO- http://checkip.amazonaws.com | tee final.ip
-            if [ "$(cat initial.ip)" == "$(cat final.ip)" ]
-            then
-              echo "This computer's apparent public IP address was not different after connecting"
-              echo "This may mean that your VPN is not configured correctly."
-              exit 1
-            fi
+  check:
+    description: "Checking VPN connection"
+    steps:
+      - run:
+          name: Checking VPN Connectivity
+          command: |
+            while [ $(cat /tmp/openvpn.log|grep -c "Connected") == 0 ]; do
+              echo "Attempting to connect..."
+              sleep 1;
+            done
+            echo "VPN Connected"
+
+            sudo openvpn3 sessions-list
+            echo "Public IP is now $(curl checkip.amazonaws.com)"
   disconnect:
     description: "Disconnect from OpenVPN"
     steps:
@@ -74,5 +82,6 @@ example:
           steps:
             - vpn/install
             - vpn/connect
+            - vpn/check
             - run: ping -c 5 192.0.2.1
             - vpn/disconnect
