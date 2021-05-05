@@ -1,8 +1,8 @@
 # openvpn-orb [![CircleCI Build Status](https://circleci.com/gh/titel-media/openvpn-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/titel-media/openvpn-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/titel-media/openvpn)][reg-page] [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/titel-media/openvpn-orb/master/LICENSE)
 
-> CircleCI orb for connecting to OpenVPN
+> CircleCI orb for connecting to OpenVPN3
 
-It allows you to establish a OpenVPN connection from within a CircleCI build job.
+It allows you to establish a OpenVPN3 connection from within a CircleCI build job.
 
 
 ## Prerequisites
@@ -12,10 +12,6 @@ The following environment variables need to be set in CircleCI either directly o
 - VPN_CONFIG
 
 Variable has to contain a Base64 encoded OpenVPN config file eg. `.ovpn` format
-
-- VPN_LOGIN
-
-Variable has to contain a Base64 encoded username and password separated with a newline
 
 
 See [CircleCI Documentation](https://circleci.com/docs/2.0/env-vars) for instructions on how you would set this up.
