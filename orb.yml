@@ -76,7 +76,7 @@ example:
     usage:
       version: 2.1
       orbs:
-        vpn: versatile/openvpn3@1.0.0
+        vpn: versatile/openvpn3@1.0.2
       jobs:
         ping:
           executor: vpn/default
