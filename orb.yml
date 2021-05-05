@@ -67,7 +67,7 @@ example:
     usage:
       version: 2.1
       orbs:
-        vpn: itai-sagi/openvpn3@0.0.1
+        vpn: itai-sagi/openvpn3@1.0.0
       jobs:
         ping:
           executor: vpn/default

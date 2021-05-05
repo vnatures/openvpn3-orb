@@ -39,3 +39,7 @@ Afterwards the actual publishing is being executed by the [CI](./.circleci/confi
 [reg-page]: https://circleci.com/orbs/registry/orb/titel-media/openvpn
 [release]: https://github.com/titel-media/openvpn-orb/releases/new
 [SemVer]: https://semver.org
+
+## Credits
+- Thanks to the original author of the orb for [openvpn](https://github.com/titel-media/openvpn-orb)
+- Thanks to the [blog post](https://support.circleci.com/hc/en-us/articles/360049397051-How-to-set-up-a-VPN-connection-during-builds-) by circle-ci staff
