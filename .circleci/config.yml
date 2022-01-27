@@ -34,7 +34,7 @@ jobs:
       - checkout
       - cli/install
       - cli/setup:
-          token: CIRCLE_CI_TOKEN
+          token: CIRCLE_TOKEN
       - run:
           name: "Validate Orb config"
           command: circleci orb validate orb.yml
