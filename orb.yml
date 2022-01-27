@@ -34,16 +34,17 @@ commands:
       - run:
           name: Init VPN
           command: |
-            echo ${<<parameters.config>>:?} | base64 --decode >> config.ovpn
+            mkdir ~/.ovpn
+            echo ${<<parameters.config>>:?} | base64 --decode >> ~/.ovpn/config.ovpn
             phone_home=$(netstat -an | grep ':22 .*LISTEN' | head -n1 | awk '{ split($5, a, ":"); print a[1] }')
-            echo -e "\nroute $phone_home 255.255.255.255 net_gateway" >> config.ovpn
-            echo "route 169.254.0.0 255.255.0.0 net_gateway" >> config.ovpn
+            echo -e "\nroute $phone_home 255.255.255.255 net_gateway" >> ~/.ovpn/config.ovpn
+            echo "route 169.254.0.0 255.255.0.0 net_gateway" >> ~/.ovpn/config.ovpn
       - run:
           name: Connect to VPN
           command: |
             wget -qO- http://checkip.amazonaws.com | tee initial.ip
-            sudo openvpn3 session-start --config config.ovpn > openvpn.log
-            cat openvpn.log
+            sudo openvpn3 session-start --config config.ovpn > ~/.ovpn/openvpn.log
+            cat ~/.ovpn/openvpn.log
             wget -qO- http://checkip.amazonaws.com | tee final.ip
   check:
     description: "Checking VPN connection"
@@ -51,7 +52,7 @@ commands:
       - run:
           name: Checking VPN Connectivity
           command: |
-            while [ $(cat /tmp/openvpn.log|grep -c "Connected") == 0 ]; do
+            while [ $(cat ~/.ovpn/openvpn.log|grep -c "Connected") == 0 ]; do
               echo "Attempting to connect..."
               sleep 1;
             done
@@ -67,7 +68,7 @@ commands:
           command: sudo killall openvpn3 || true
       - run:
           name: remove OpenVPN config
-          command: sudo rm config.ovpn
+          command: sudo rm ~/.ovpn/config.ovpn
 
 example:
   secure-ping:
