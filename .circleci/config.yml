@@ -33,8 +33,6 @@ jobs:
     steps:
       - checkout
       - cli/install
-      - cli/setup:
-          token: CIRCLE_TOKEN
       - run:
           name: "Validate Orb config"
           command: circleci orb validate orb.yml
@@ -42,6 +40,9 @@ jobs:
     executor: cli/default
     steps:
       - checkout
+      - cli/install
+      - cli/setup:
+          token: CIRCLE_TOKEN
       - run:
           name: "Publish orb via the CircleCI CLI"
           command: circleci orb publish orb.yml versatile/openvpn3@${CIRCLE_TAG}
