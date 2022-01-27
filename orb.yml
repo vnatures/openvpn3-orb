@@ -51,7 +51,7 @@ commands:
       - run:
           name: Checking VPN Connectivity
           command: |
-            while [ $(cat /tmp/openvpn.log|grep -c "Connected") == 0 ]; do
+            while [ $(cat openvpn.log|grep -c "Connected") == 0 ]; do
               echo "Attempting to connect..."
               sleep 1;
             done
