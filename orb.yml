@@ -43,7 +43,7 @@ commands:
           name: Connect to VPN
           command: |
             wget -qO- http://checkip.amazonaws.com | tee initial.ip
-            sudo openvpn3 session-start --config config.ovpn > ~/.ovpn/openvpn.log
+            sudo openvpn3 session-start --config ~/.ovpn/config.ovpn > ~/.ovpn/openvpn.log
             cat ~/.ovpn/openvpn.log
             wget -qO- http://checkip.amazonaws.com | tee final.ip
   check:
