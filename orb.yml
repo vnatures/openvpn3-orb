@@ -41,8 +41,9 @@ commands:
             else
                 phone_home=$(ss -an | grep 'ESTAB.*:22' | head -n1 | awk '{ split($5, a, ":"); print a[1] }')
             fi
+            echo "\n" >> ~/.ovpn/config.ovpn
             if [ ! -z "$phone_home" ]; then
-              echo -e "\nroute $phone_home 255.255.255.255 net_gateway" >> ~/.ovpn/config.ovpn
+              echo -e "route $phone_home 255.255.255.255 net_gateway" >> ~/.ovpn/config.ovpn
             fi
             echo "route 169.254.0.0 255.255.0.0 net_gateway" >> ~/.ovpn/config.ovpn
       - run:
