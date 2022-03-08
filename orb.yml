@@ -21,7 +21,7 @@ commands:
             sudo apt-key add openvpn-repo-pkg-key.pub
             sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-$(sed 's/UBUNTU_CODENAME=//;t;d' /etc/os-release).list
             sudo apt update
-            sudo apt install openvpn3
+            sudo apt install -y openvpn3
   connect:
     description: "Connect to OpenVPN"
     parameters:
@@ -35,6 +35,7 @@ commands:
           name: Init VPN
           command: |
             mkdir ~/.ovpn
+            apt install net-tools -y 
             echo ${<<parameters.config>>:?} | base64 --decode >> ~/.ovpn/config.ovpn
             if netstat -an; then
                 phone_home=$(netstat -an | grep ':22 .*ESTABLISHED' | head -n1 | awk '{ split($5, a, ":"); print a[1] }')
