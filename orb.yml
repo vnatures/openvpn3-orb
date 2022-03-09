@@ -36,11 +36,7 @@ commands:
           command: |
             mkdir ~/.ovpn
             echo ${<<parameters.config>>:?} | base64 --decode >> ~/.ovpn/config.ovpn
-            if netstat -an; then
-                phone_home=$(netstat -an | grep ':22 .*ESTABLISHED' | head -n1 | awk '{ split($5, a, ":"); print a[1] }')
-            else
-                phone_home=$(ss -an | grep 'ESTAB.*:22' | head -n1 | awk '{ split($6, a, ":"); print a[1] }')
-            fi
+            phone_home=$(ss -an | grep 'ESTAB.*:22' | head -n1 | awk '{ split($6, a, ":"); print a[1] }')
             echo -e "\n" >> ~/.ovpn/config.ovpn
             if [ ! -z "$phone_home" ]; then
               echo -e "route $phone_home 255.255.255.255 net_gateway" >> ~/.ovpn/config.ovpn
