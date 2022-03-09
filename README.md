@@ -1,4 +1,4 @@
-# openvpn-orb [![CircleCI Build Status](https://circleci.com/gh/titel-media/openvpn-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/titel-media/openvpn-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/titel-media/openvpn)][reg-page] [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/titel-media/openvpn-orb/master/LICENSE)
+# openvpn-orb [![CircleCI Build Status](https://circleci.com/gh/vnatures/openvpn3-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/titel-media/openvpn-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/titel-media/openvpn)][reg-page] [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/titel-media/openvpn-orb/master/LICENSE)
 
 > CircleCI orb for connecting to OpenVPN3
 
