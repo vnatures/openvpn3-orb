@@ -41,8 +41,7 @@ jobs:
     steps:
       - checkout
       - cli/install
-      - cli/setup:
-          token: CIRCLE_TOKEN
+      - cli/setup
       - run:
           name: "Publish orb via the CircleCI CLI"
           command: circleci orb publish orb.yml versatile/openvpn3@${CIRCLE_TAG}

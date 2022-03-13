@@ -36,12 +36,11 @@ commands:
           command: |
             mkdir ~/.ovpn
             echo ${<<parameters.config>>:?} | base64 --decode >> ~/.ovpn/config.ovpn
-            phone_home=$(ss -an | grep 'ESTAB.*:22' | head -n1 | awk '{ split($6, a, ":"); print a[1] }')
-            echo -e "\n" >> ~/.ovpn/config.ovpn
-            if [ ! -z "$phone_home" ]; then
-              echo -e "route $phone_home 255.255.255.255 net_gateway" >> ~/.ovpn/config.ovpn
+            phone_home=$(ss -Hnto state established '( sport = :ssh )' | head -n1 | awk '{ split($4, a, ":"); print a[1] }')
+            if [ -n "$phone_home" ]; then
+              echo -e "\nroute $phone_home 255.255.255.255 net_gateway" >> ~/.ovpn/config.ovpn
             fi
-            echo "route 169.254.0.0 255.255.0.0 net_gateway" >> ~/.ovpn/config.ovpn
+            echo -e "\nroute 169.254.0.0 255.255.0.0 net_gateway" >> ~/.ovpn/config.ovpn
       - run:
           name: Connect to VPN
           command: |
